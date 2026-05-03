@@ -3,13 +3,15 @@ public class Locations{
   private double baseUsage;
   private int comfort;
   private int spiritMeter;
+  private boolean isOn;
 
-  public Locations(String name, double baseUsage, int comfort, int spiritMeter) {
+  public Locations(String name, double baseUsage, int comfort, int spiritMeter, boolean isOn) {
     this.name = name;
     this.baseUsage = baseUsage;
     this.currentUsage = baselineUsage;
     this.comfort = comfort;
     this.spiritMeter = spiritMeter;
+    this.isOn = isOn;
   }
 
   // Getters
@@ -53,5 +55,10 @@ public class Locations{
   public void increaseEnergy(int amount) {
     currentUsage += amount;
   }
+
+  
+}
+
+public class Classroom{
   
 }
