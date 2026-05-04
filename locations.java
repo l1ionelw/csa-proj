@@ -1,3 +1,4 @@
+// @Author - Niyati Gandhi
 public class Locations{
   private String name;
   private double baseUsage;
