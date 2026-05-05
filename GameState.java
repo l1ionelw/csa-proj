@@ -38,7 +38,6 @@ public class GameState {
 
     /**
      * Applies effects of a player action to the meters.
-     * To be fully implemented in Week 2.
      * @author Sejal Chandavale
      * @param actionType the type of action taken
      * @param actionsThisDay number of actions taken today
