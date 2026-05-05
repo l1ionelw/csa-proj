@@ -1,0 +1,8 @@
+Name,Score
+Evergreen Valley High School,67
+Silver Creek High School,32
+Andrew Hill High School,52
+Santa Teresa High School,64
+Oak Grove High School,49
+Piedmont High School,34
+Willow Glen High School,75
