@@ -45,6 +45,44 @@ public class GameState {
      */
     public void applyActionEffects(String actionType, int actionsThisDay) {
         // TODO: implement in Week 2
+        if (actionType.equals("LED")) {
+            comfortMeter -= 5;
+        } 
+        else if (actionType.equals("HVAC")) {
+            comfortMeter -= 10;
+        } 
+        else if (actionType.equals("DEVICE_SHUTDOWN")) {
+            comfortMeter -= 3;
+        } 
+        else if (actionType.equals("AWARENESS")) {
+            comfortMeter += 5;
+            spiritMeter  += 8;
+        }
+
+        // spirit reaction rules
+        if (comfortMeter >= 60) {
+            spiritMeter += 10;
+        }
+        if (comfortMeter < 40) {
+            spiritMeter -= 15;
+        }
+        if (actionsThisDay >= 3) {
+            spiritMeter -= 5;
+        }
+
+        // keep between 0 and 100
+        if (comfortMeter > 100){
+            comfortMeter = 100;
+        }
+        if (comfortMeter < 0){
+            comfortMeter = 0;
+        }
+        if (spiritMeter > 100){
+            spiritMeter  = 100;
+        }
+        if (spiritMeter < 0){
+            spiritMeter  = 0;
+        }
     }
 
     /**
