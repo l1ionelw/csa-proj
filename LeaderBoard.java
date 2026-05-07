@@ -1,3 +1,7 @@
+/**
+* Keeps track of schools and corresponding scores
+* @author Vibha Ramakumara, Sejal Chandavale
+*/
 import java.io.*;
 import java.util.Scanner;
 
