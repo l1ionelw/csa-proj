@@ -37,7 +37,7 @@ public class Locations{
      this.name = n;
   }
 
-  public void serBaseUsage(double bU){
+  public void setBaseUsage(double bU){
      this.baseUsage = bU;
   }
   
