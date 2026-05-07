@@ -32,8 +32,4 @@ public class LeaderBoard {
             System.out.println("Could not load file: " + e.getMessage());
         }
     }
-
-    public LeaderBoard dailyBoardUpdate {
-        
-    }
 }
