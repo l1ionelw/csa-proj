@@ -12,84 +12,95 @@ public class Locations {
   public static int totalWeeklySpiritMeter = 0;
 
   public Locations(String name, double baseUsage, int comfort, int spiritMeter, boolean isOn) {
-      this.name = name;
-      this.baseUsage = baseUsage;
-      this.currentUsage = baseUsage;
-      this.comfort = comfort;
-      this.spiritMeter = spiritMeter;
-      this.isOn = isOn;
+    this.name = name;
+    this.baseUsage = baseUsage;
+    this.currentUsage = baseUsage;
+    this.comfort = comfort;
+    this.spiritMeter = spiritMeter;
+    this.isOn = isOn;
   }
 
   // Getters
   public String getName() {
-      return this.name;
+    return this.name;
   }
   public double getBaseUsage() {
-      return this.baseUsage;
+    return this.baseUsage;
   }
   public double getCurrentUsage() {
-      return this.currentUsage;
+    return this.currentUsage;
   }
   public int getComfort() {
-      return this.comfort;
+    return this.comfort;
   }
   public int getSpiritMeter() {
-      return this.spiritMeter; 
+    return this.spiritMeter; 
   }
   public boolean getIsOn() {
-      return this.isOn;
+    return this.isOn;
   }
 
   // Setters
   public void setName(String n) {
-      this.name = n;
+    this.name = n;
   }
   public void setBaseUsage(double bU) {
-      this.baseUsage = bU;
+    this.baseUsage = bU;
   }
   public void setComfort(int c) {
-      this.comfort = c;
+    this.comfort = c;
   }
   public void setSpiritMeter(int m) {
-      this.spiritMeter = m;
+    this.spiritMeter = m;
   }
 
   public void turnOn() {
-      this.isOn = true;
-      this.currentUsage = this.baseUsage;
+    this.isOn = true;
+    this.currentUsage = this.baseUsage;
   }
   public void turnOff() {
-      this.isOn = false;
-      this.currentUsage = 0;
+    this.isOn = false;
+    this.currentUsage = 0;
   }
 
   public void reduceEnergy(int amount) {
-      if (!isOn) return;
-      currentUsage -= amount;
-      if (currentUsage < 0) currentUsage = 0;
+    if (!isOn){
+      return;
+    }
+    currentUsage -= amount;
+    if (currentUsage < 0){
+      currentUsage = 0;
+    }
   }
+  
   public void increaseEnergy(int amount) {
-      if (!isOn) return;
-      currentUsage += amount;
+    if (!isOn){
+      return;
+    }
+    currentUsage += amount;
   }
 
-  public void recordDailyStats() {
-      if (isOn) {
-          totalWeeklyUsage += currentUsage;
-          totalWeeklyComfort += comfort;
-          totalWeeklySpiritMeter += spiritMeter;
-      }
+  public void recordDailyStats(int day) {
+    if (day >= 6){
+      return;
+    }
+    if (isOn) {
+      totalWeeklyUsage += currentUsage;
+      totalWeeklyComfort += comfort;
+      totalWeeklySpiritMeter += spiritMeter;
+    }
   }
+  
   public static void resetWeeklyTotals() {
-      totalWeeklyUsage = 0;
-      totalWeeklyComfort = 0;
-      totalWeeklySpiritMeter = 0;
+    totalWeeklyUsage = 0;
+    totalWeeklyComfort = 0;
+    totalWeeklySpiritMeter = 0;
   }
 
   public String getZoneReport() {
-      String status = isOn ? "ON" : "OFF";
-      return name + " [" + status + "] | Usage: " + currentUsage
-            + " kWh | Comfort: " + comfort + " | Spirit: " + spiritMeter;
+    String status = isOn ? "ON" : "OFF";
+    return name + " [" + status + "] | Usage: " + currentUsage
+          + " kWh | Comfort: " + comfort + " | Spirit: " + spiritMeter;
   }
 
   public void resetLocation() {
@@ -98,23 +109,36 @@ public class Locations {
     this.spiritMeter = 100;
   }
   
+  System.out.println(classroom.getZoneReport());
+  System.out.println(cafeteria.getZoneReport());
+  System.out.println(bathroom.getZoneReport());
+  System.out.println("Total weekly usage: " + Locations.totalWeeklyUsage + " kWh");
+  System.out.println("Total weekly comfort: " + Locations.totalWeeklyComfort);
+  System.out.println("Total weekly spirit: " + Locations.totalWeeklySpiritMeter);
+
+  Locations.resetWeeklyTotals();
+
+  classroom.resetLocation();
+  cafeteria.resetLocation();
+  bathroom.resetLocation();
+  
 }
 
 
 public class Classroom extends Locations {
 
   public Classroom(String name, double baseUsage, int comfort, int spiritMeter, boolean isOn) {
-      super(name, baseUsage, comfort, spiritMeter, isOn);
+    super(name, baseUsage, comfort, spiritMeter, isOn);
   }
 
   public void reduceEnergy(int amount) {
-      super.reduceEnergy(amount);
-      setComfort(getComfort() - (amount * 2));
-      setSpiritMeter(getSpiritMeter() - amount);
+    super.reduceEnergy(amount);
+    setComfort(getComfort() - (amount * 2));
+    setSpiritMeter(getSpiritMeter() - amount);
   }
 
   public String getZoneReport() {
-      return "CLASSROOM - " + super.getZoneReport();
+    return "CLASSROOM - " + super.getZoneReport();
   }
 }
 
@@ -126,13 +150,13 @@ public class Cafeteria extends Locations {
   }
 
   public void reduceEnergy(int amount) {
-      super.reduceEnergy(amount);
-      setSpiritMeter(getSpiritMeter() - (amount * 3));
-      setComfort(getComfort() - amount);
+    super.reduceEnergy(amount);
+    setSpiritMeter(getSpiritMeter() - (amount * 3));
+    setComfort(getComfort() - amount);
   }
 
   public String getZoneReport() {
-      return "CAFETERIA - " + super.getZoneReport();
+    return "CAFETERIA - " + super.getZoneReport();
   }
 }
 
@@ -140,16 +164,16 @@ public class Cafeteria extends Locations {
 public class Bathroom extends Locations {
 
   public Bathroom(String name, double baseUsage, int comfort, int spiritMeter, boolean isOn) {
-      super(name, baseUsage, comfort, spiritMeter, isOn);
+    super(name, baseUsage, comfort, spiritMeter, isOn);
   }
 
   public void reduceEnergy(int amount) {
-      super.reduceEnergy(amount);
-      setComfort(getComfort() - (amount / 2));
+    super.reduceEnergy(amount);
+    setComfort(getComfort() - (amount / 2));
   }
 
   public String getZoneReport() {
-      return "BATHROOM - " + super.getZoneReport();
+    return "BATHROOM - " + super.getZoneReport();
   }
 }
 
