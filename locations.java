@@ -108,21 +108,21 @@ public class Locations {
     this.comfort = 100;
     this.spiritMeter = 100;
   }
-  
-  System.out.println(classroom.getZoneReport());
-  System.out.println(cafeteria.getZoneReport());
-  System.out.println(bathroom.getZoneReport());
-  System.out.println("Total weekly usage: " + Locations.totalWeeklyUsage + " kWh");
-  System.out.println("Total weekly comfort: " + Locations.totalWeeklyComfort);
-  System.out.println("Total weekly spirit: " + Locations.totalWeeklySpiritMeter);
 
-  Locations.resetWeeklyTotals();
-
-  classroom.resetLocation();
-  cafeteria.resetLocation();
-  bathroom.resetLocation();
-  
 }
+  
+  //System.out.println(classroom.getZoneReport());
+  //System.out.println(cafeteria.getZoneReport());
+  //System.out.println(bathroom.getZoneReport());
+  //System.out.println("Total weekly usage: " + Locations.totalWeeklyUsage + " kWh");
+  //System.out.println("Total weekly comfort: " + Locations.totalWeeklyComfort);
+  //System.out.println("Total weekly spirit: " + Locations.totalWeeklySpiritMeter);
+
+  //Locations.resetWeeklyTotals();
+
+  //classroom.resetLocation();
+  //cafeteria.resetLocation();
+  //bathroom.resetLocation();
 
 
 public class Classroom extends Locations {
