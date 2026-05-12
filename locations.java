@@ -1,4 +1,4 @@
-// @Author - Niyati Gandhi
+// @Author - Niyati Gandhi and Vibha Ramakumara
 public class Locations {
   private String name;
   private double baseUsage;
