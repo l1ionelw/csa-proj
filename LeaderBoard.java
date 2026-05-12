@@ -16,7 +16,7 @@ public class LeaderBoard {
         try {
             File reader = new File(textFile);
             Scanner scan = new Scanner(reader);
-            scan.nextLine(); // skip header
+            scan.nextLine(); 
 
             int count = 0;
             while (scan.hasNextLine()) {
