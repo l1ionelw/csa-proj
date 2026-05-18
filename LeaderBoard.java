@@ -1,23 +1,18 @@
-/**
-* Keeps track of schools and corresponding scores
-* @author Vibha Ramakumara, Sejal Chandavale
-*/
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class LeaderBoard {
     private ArrayList<String> schoolNames;
-    private ArrayList<int> schoolScores;
-    
+    private ArrayList<Integer> schoolScores;
 
     public LeaderBoard(String textFile) {
-        schoolNames = new ArrayList<>();
+        schoolNames  = new ArrayList<>();
         schoolScores = new ArrayList<>();
 
-        try {
-            File reader = new File(textFile);
-            Scanner scan = new Scanner(reader);
+        File reader = new File(textFile);
+
+        try (Scanner scan = new Scanner(reader)) {
             scan.nextLine(); // skips header
 
             int count = 0;
@@ -25,16 +20,15 @@ public class LeaderBoard {
                 String line = scan.nextLine();
                 String[] parts = line.split(",");
                 schoolNames.add(parts[0].trim());
-                schoolScores.add(Integer.parseInf(parts[1].trim()));
+                schoolScores.add(Integer.parseInt(parts[1].trim()));
                 count++;
             }
-            scan.close();
             System.out.println("Loaded " + count + " schools.");
 
-        } catch (Exception e) {
-            System.out.println("Could not load file: " + e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
-
     }
 
     // @author VIBHA
@@ -46,7 +40,7 @@ public class LeaderBoard {
                 int tempScore = schoolScores.get(i);
                 schoolScores.set(i, schoolScores.get(i + 1));
                 schoolScores.set(i + 1, tempScore);
-                // swap school names
+                // swap names
                 String tempSchool = schoolNames.get(i);
                 schoolNames.set(i, schoolNames.get(i + 1));
                 schoolNames.set(i + 1, tempSchool);
@@ -54,30 +48,39 @@ public class LeaderBoard {
         }
     }
 
-    public ArrayList<Integer> getSchoolScores(){
+    public ArrayList<Integer> getSchoolScores() {
         return schoolScores;
     }
 
-    public ArrayList<String> getSchoolNames(){
+    public ArrayList<String> getSchoolNames() {
         return schoolNames;
     }
 
-    public void displayLeaderBoard(){
-        System.out.println(getSchoolScores);
-        System.out.println(getSchoolNames);
+    public void displayLeaderBoard() {
+        for (int i = 0; i < schoolNames.size(); i++) {
+            System.out.println((i + 1) + ". " + schoolNames.get(i) + " - " + schoolScores.get(i));
+        }
     }
 
-    public File fileOutput(){
+    public void fileOutput() {
         try {
-            File myObj = new File("Updated Leader Board.txt"); // Create File object
-            if (myObj.createNewFile()) {           // Try to create the file
+            File myObj = new File("UpdatedLeaderBoard.txt");
+            if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
-            System.out.println("File already exists.");
+                System.out.println("File already exists.");
             }
+
+            PrintWriter writer = new PrintWriter(myObj);
+            writer.println("School,Score");
+            for (int i = 0; i < schoolNames.size(); i++) {
+                writer.println(schoolNames.get(i) + "," + schoolScores.get(i));
+            }
+            writer.close();
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace(); // Print error details
+            e.printStackTrace();
         }
     }
 }
