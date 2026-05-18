@@ -1,4 +1,4 @@
-public class Classroom extends Locations {
+public class Classroom extends Zone {
 
   public Classroom(String name, int comfort, int spiritMeter) {
     super(name, 0, comfort, spiritMeter);
