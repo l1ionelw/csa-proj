@@ -1,4 +1,4 @@
-public class Bathroom extends Locations {
+public class Bathroom extends Zone {
 
   public Bathroom(String name, int comfort, int spiritMeter, boolean isOn) {
     super(name, 100, comfort, spiritMeter, true);
