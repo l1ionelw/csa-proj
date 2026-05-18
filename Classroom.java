@@ -1,24 +1,19 @@
 public class Classroom extends Zone {
 
   public Classroom(String name, int comfort, int spiritMeter) {
-    super(name, 0, comfort, spiritMeter);
+    super(name, comfort, spiritMeter);
   }
 
   public void openWindow() {
-    //Light comes increase
-    //Don't need AC
     super.reduceEnergy(20);
     super.setComfort(getComfort() + 10);
     super.setSpiritMeter(getSpiritMeter() + 5);
-    
   }
 
   public void turnOnAC() {
-    //Air conditioning uses energy
     super.increaseEnergy(20);
     super.setComfort(getComfort() + 10);
     super.setSpiritMeter(getSpiritMeter() - 5);
-
   }
 
   public void apExams() {
@@ -31,4 +26,3 @@ public class Classroom extends Zone {
     return "CLASSROOM - " + super.getZoneReport();
   }
 }
-
