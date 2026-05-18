@@ -1,4 +1,4 @@
-public class Cafeteria extends Locations {
+public class Cafeteria extends Zone {
 
   public Cafeteria(String name, int comfort, int spiritMeter, boolean isOn) {
     super(name, 100, comfort, spiritMeter, true);
