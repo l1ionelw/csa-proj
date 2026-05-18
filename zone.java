@@ -1,5 +1,5 @@
 //@author Niyati Gandhi
-public class Locations {
+public class Zone {
   private String name;
   private double currentUsage;
   private int comfort;
@@ -13,7 +13,7 @@ public class Locations {
   //@author VIBHA
   public static ArrayList<Integer> dailyUsage;
 
-  public Locations(String name, int comfort, int spiritMeter) {
+  public Zone(String name, int comfort, int spiritMeter) {
     this.name = name;
     this.currentUsage = 100;
     this.comfort = comfort;
@@ -156,11 +156,11 @@ public class Locations {
   //System.out.println(classroom.getZoneReport());
   //System.out.println(cafeteria.getZoneReport());
   //System.out.println(bathroom.getZoneReport());
-  //System.out.println("Total weekly usage: " + Locations.totalWeeklyUsage + " kWh");
-  //System.out.println("Total weekly comfort: " + Locations.totalWeeklyComfort);
-  //System.out.println("Total weekly spirit: " + Locations.totalWeeklySpiritMeter);
+  //System.out.println("Total weekly usage: " + Zone.totalWeeklyUsage + " kWh");
+  //System.out.println("Total weekly comfort: " + Zone.totalWeeklyComfort);
+  //System.out.println("Total weekly spirit: " + ZOne.totalWeeklySpiritMeter);
 
-  //Locations.resetWeeklyTotals();
+  //Zone.resetWeeklyTotals();
 
   //classroom.resetLocation();
   //cafeteria.resetLocation();
