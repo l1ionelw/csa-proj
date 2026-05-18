@@ -1,4 +1,4 @@
-//@author Niyati Gandhi
+//author@ Niyati Gandhi and Vibha Ramakumar
 public class Zone {
   private String name;
   private double currentUsage;
@@ -6,20 +6,18 @@ public class Zone {
   private int spiritMeter;
   private static int day;
   private static int eventTracker;
-
   public static double totalWeeklyUsage = 0;
   public static int totalWeeklyComfort = 0;
   public static int totalWeeklySpiritMeter = 0;
-  //@author VIBHA
-  public static ArrayList<Integer> dailyUsage;
+  public static double[] dailyUsage = new double[5];
 
   public Zone(String name, int comfort, int spiritMeter) {
     this.name = name;
     this.currentUsage = 100;
     this.comfort = comfort;
     this.spiritMeter = spiritMeter;
-    day = 1;            
-    eventTracker = 3;   
+    day = 1;
+    eventTracker = 3;
   }
 
   // Getters
@@ -43,7 +41,6 @@ public class Zone {
   }
 
   // Setters
-  
   public void setCurrentUsage(double cU) {
     this.currentUsage = cU;
   }
@@ -75,12 +72,10 @@ public class Zone {
 
   public void recordDailyStats() {
     //@author VIBHA
-    if (isOn) {
-      totalWeeklyUsage += currentUsage;
-      totalWeeklyComfort += comfort;
-      totalWeeklySpiritMeter += spiritMeter;
-      dailyUsage.set(day - 1, currentUsage);
-    }
+    totalWeeklyUsage += currentUsage;
+    totalWeeklyComfort += comfort;
+    totalWeeklySpiritMeter += spiritMeter;
+    dailyUsage[day - 1] = currentUsage;
   }
 
   public String getDailyReport() {
@@ -90,7 +85,7 @@ public class Zone {
     else if (day == 3) dayName = "Wednesday";
     else if (day == 4) dayName = "Thursday";
     else dayName = "Friday";
-    return dayName + " | " + name + "Usage: " + currentUsage
+    return dayName + " | " + name + " | Usage: " + currentUsage
           + " kWh | Comfort: " + comfort + " | Spirit: " + spiritMeter;
   }
 
@@ -98,11 +93,25 @@ public class Zone {
     String report = "--- WEEKLY REPORT ---\n";
     String[] dayNames = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     for (int i = 0; i < 5; i++) {
-      report += dayNames[i] + " usage: " + dailyUsage.get(i) + " kWh\n";
+      report += dayNames[i] + " usage: " + dailyUsage[i] + " kWh\n";
     }
     report += "Total weekly usage:   " + totalWeeklyUsage + " kWh\n";
     report += "Total weekly comfort: " + totalWeeklyComfort + "\n";
     report += "Total weekly spirit:  " + totalWeeklySpiritMeter + "\n";
+
+    int bestIndex = 0;
+    int worstIndex = 0;
+    for (int i = 1; i < 5; i++) {
+      if (dailyUsage[i] < dailyUsage[bestIndex]) {
+        bestIndex = i;
+      }
+      if (dailyUsage[i] > dailyUsage[worstIndex]) {
+        worstIndex = i;
+      }
+    }
+
+    report += "Best day:  " + dayNames[bestIndex] + " - " + dailyUsage[bestIndex] + " kWh\n";
+    report += "Worst day: " + dayNames[worstIndex] + " - " + dailyUsage[worstIndex] + " kWh\n";
     return report;
   }
 
@@ -116,7 +125,7 @@ public class Zone {
   }
 
   public String getZoneReport() {
-    return name + "Usage: " + getCurrentUsage()
+    return name + " | Usage: " + getCurrentUsage()
           + " kWh | Comfort: " + comfort + " | Spirit: " + spiritMeter;
   }
 
@@ -125,43 +134,26 @@ public class Zone {
     this.comfort = 100;
     this.spiritMeter = 100;
   }
-  
-  public void newDay(){
+
+  public void newDay() {
     eventTracker--;
-    if(eventTracker == 1){
-      dailyUsage.add(getCurrentUsage());
+    if (eventTracker == 0) {
+      dailyUsage[day - 1] = getCurrentUsage();
+      recordDailyStats();
       setCurrentUsage(0);
       day++;
+      eventTracker = 3;
     }
   }
 
-
-  public String findMaxUsageDay(){
+  public String findMaxUsageDay() {
     String[] daysInWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-    if(day % 5 == 0){
-      System.out.println("Week Over");
-      int max = dailyUsage.get(0);
-      for(int i = dailyUsage.size(); i <= 5; i--){
-        for(int i = 0; i < 5; i++){
-          if(dailyUsage.get(i) > max){
-            max = dailyUsage.get(i);
-          }
-        }
-        return "The max usage day this week was: " + daysInWeek[i] + " - " + max;
+    int maxIndex = 0;
+    for (int i = 1; i < day - 1; i++) {
+      if (dailyUsage[i] > dailyUsage[maxIndex]) {
+        maxIndex = i;
       }
     }
+    return "The max usage day this week was: " + daysInWeek[maxIndex] + " - " + dailyUsage[maxIndex];
   }
 }
-     
-  //System.out.println(classroom.getZoneReport());
-  //System.out.println(cafeteria.getZoneReport());
-  //System.out.println(bathroom.getZoneReport());
-  //System.out.println("Total weekly usage: " + Zone.totalWeeklyUsage + " kWh");
-  //System.out.println("Total weekly comfort: " + Zone.totalWeeklyComfort);
-  //System.out.println("Total weekly spirit: " + ZOne.totalWeeklySpiritMeter);
-
-  //Zone.resetWeeklyTotals();
-
-  //classroom.resetLocation();
-  //cafeteria.resetLocation();
-  //bathroom.resetLocation();}
