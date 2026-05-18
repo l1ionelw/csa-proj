@@ -1,5 +1,4 @@
 // @Author - Niyati Gandhi and Vibha Ramakumara
-//@author Niyati Gandhi
 public class Locations {
   private String name;
   private double currentUsage;
@@ -11,7 +10,6 @@ public class Locations {
   public static double totalWeeklyUsage = 0;
   public static int totalWeeklyComfort = 0;
   public static int totalWeeklySpiritMeter = 0;
-  //@author VIBHA
   public static int[] dailyUsage;
 
   public Locations(String name, int comfort, int spiritMeter) {
@@ -75,7 +73,6 @@ public class Locations {
   }
 
   public void recordDailyStats() {
-    //@author VIBHA
     if (isOn) {
       totalWeeklyUsage += currentUsage;
       totalWeeklyComfort += comfort;
