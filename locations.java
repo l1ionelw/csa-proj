@@ -1,4 +1,4 @@
-// @Author - Niyati Gandhi and Vibha Ramakumara
+//@author Niyati Gandhi
 public class Locations {
   private String name;
   private double currentUsage;
@@ -10,7 +10,8 @@ public class Locations {
   public static double totalWeeklyUsage = 0;
   public static int totalWeeklyComfort = 0;
   public static int totalWeeklySpiritMeter = 0;
-  public static int[] dailyUsage;
+  //@author VIBHA
+  public static ArrayList<Integer> dailyUsage;
 
   public Locations(String name, int comfort, int spiritMeter) {
     this.name = name;
@@ -73,11 +74,12 @@ public class Locations {
   }
 
   public void recordDailyStats() {
+    //@author VIBHA
     if (isOn) {
       totalWeeklyUsage += currentUsage;
       totalWeeklyComfort += comfort;
       totalWeeklySpiritMeter += spiritMeter;
-      dailyUsage[day - 1] = currentUsage;
+      dailyUsage.set(day - 1, currentUsage);
     }
   }
 
@@ -96,7 +98,7 @@ public class Locations {
     String report = "--- WEEKLY REPORT ---\n";
     String[] dayNames = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     for (int i = 0; i < 5; i++) {
-      report += dayNames[i] + " usage: " + dailyUsage[i] + " kWh\n";
+      report += dayNames[i] + " usage: " + dailyUsage.get(i) + " kWh\n";
     }
     report += "Total weekly usage:   " + totalWeeklyUsage + " kWh\n";
     report += "Total weekly comfort: " + totalWeeklyComfort + "\n";
@@ -138,11 +140,11 @@ public class Locations {
     String[] daysInWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     if(day % 5 == 0){
       System.out.println("Week Over");
-      int max = dailyUsage[0];
-      for(int i = dailyUsage.length; i <= 5; i--){
+      int max = dailyUsage.get(0);
+      for(int i = dailyUsage.size(); i <= 5; i--){
         for(int i = 0; i < 5; i++){
-          if(dailyUsage[i] > max){
-            max = dailyUsage[i];
+          if(dailyUsage.get(i) > max){
+            max = dailyUsage.get(i);
           }
         }
         return "The max usage day this week was: " + daysInWeek[i] + " - " + max;
@@ -150,8 +152,16 @@ public class Locations {
     }
   }
 }
+     
+  //System.out.println(classroom.getZoneReport());
+  //System.out.println(cafeteria.getZoneReport());
+  //System.out.println(bathroom.getZoneReport());
+  //System.out.println("Total weekly usage: " + Locations.totalWeeklyUsage + " kWh");
+  //System.out.println("Total weekly comfort: " + Locations.totalWeeklyComfort);
+  //System.out.println("Total weekly spirit: " + Locations.totalWeeklySpiritMeter);
 
-classroom.resetLocation();
-cafeteria.resetLocation();
-bathroom.resetLocation();}
+  //Locations.resetWeeklyTotals();
 
+  //classroom.resetLocation();
+  //cafeteria.resetLocation();
+  //bathroom.resetLocation();}
