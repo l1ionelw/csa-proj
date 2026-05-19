@@ -48,6 +48,26 @@ public class LeaderBoard {
         }
     }
 
+    public String searchSchoolScore(int x){
+        int low = 0;
+        int high = schoolScores.size();
+
+        while(low <= high){
+            int mid = (high - low)/2;
+
+            if(schoolScores.get(mid) == x){
+                return schoolNames.get(mid);
+            }
+            else if(schoolScore.get(mid) < x){
+                low = mid + 1;
+            }
+            else{
+                high = mid - 1;
+            }
+        }
+        return "No schools have this particular score.\nPlease enter another score."
+    }
+
     public ArrayList<Integer> getSchoolScores() {
         return schoolScores;
     }
@@ -64,19 +84,13 @@ public class LeaderBoard {
 
     public void fileOutput() {
         try {
-            File myObj = new File("UpdatedLeaderBoard.txt");
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-
-            PrintWriter writer = new PrintWriter(myObj);
-            writer.println("School,Score");
+            PrintWriter writer = new PrintWriter("UpdatedLeaderBoard.txt");
+            writer.println("Rank,School,Score");
             for (int i = 0; i < schoolNames.size(); i++) {
-                writer.println(schoolNames.get(i) + "," + schoolScores.get(i));
+                writer.println((i + 1) + "," + schoolNames.get(i) + "," + schoolScores.get(i));
             }
             writer.close();
+            System.out.println("Leaderboard saved.");
 
         } catch (IOException e) {
             System.out.println("An error occurred.");
